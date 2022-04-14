@@ -1,4 +1,4 @@
-/* @ts-ignore */
+/* @ts-nocheck */
 import React, { ReactNode } from "react";
 import {
   MatchSquadModel,

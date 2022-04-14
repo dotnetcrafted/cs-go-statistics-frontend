@@ -1,4 +1,4 @@
-/* @ts-ignore */
+/* @ts-nocheck */
 import React from "react";
 import { Table } from "antd";
 import { MatchRoundModel } from "../../../models";

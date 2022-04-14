@@ -1,10 +1,10 @@
-/* @ts-ignore */
+/* @ts-nocheck */
 import React from "react";
 import { Link } from "react-router-dom";
 import { parseISO, format } from "date-fns";
 import { BaseMatchModel } from "../../../models";
 import { getDuration } from "../../../project/helpers";
-
+ 
 interface MatchesCardProps {
   match: BaseMatchModel | null;
 }

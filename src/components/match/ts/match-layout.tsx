@@ -1,4 +1,4 @@
-/* @ts-ignore */
+/* @ts-nocheck */
 import React from "react";
 import { parseISO, format } from "date-fns";
 import { MatchModel, MatchRoundModel } from "../../../models";

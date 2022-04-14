@@ -1,4 +1,4 @@
-/* @ts-ignore */
+/* @ts-nocheck */
 import React from "react";
 import { MatchesModel } from "../../../models";
 import { MatchesCard } from "./macthes-card";
