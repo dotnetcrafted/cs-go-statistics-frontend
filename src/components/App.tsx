@@ -4,6 +4,7 @@ import players from "../store/players";
 import steamPlayers from "../store/steamPlayers";
 import Home from "./pages/Home/Home";
 import Wiki from "./pages/Wiki/Wiki";
+import { Matches } from "./matches";
 
 const App = () => {
   const fetchPlayers = useCallback(() => {
@@ -24,6 +25,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/wiki" element={<Wiki />} />
+          <Route path="/matches" element={<Matches />} />
         </Routes>
       </main>
     </div>
