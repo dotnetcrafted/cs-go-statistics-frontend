@@ -1,9 +1,11 @@
-import axios, {AxiosResponse } from "axios";
-import { makeAutoObservable } from "mobx";
+import axios, { AxiosResponse } from "axios";
+import { makeAutoObservable, toJS } from "mobx";
 import { Axios } from "../core/api/client";
 
 interface Weapon {
   id: string;
+  WeaponId: number;
+  Name: any;
 }
 
 interface WeaponStats {
@@ -15,12 +17,31 @@ interface WeaponStats {
 }
 
 class WeaponsStore {
-  weapons: Weapon[] = [];
+  weapons: { [key: string]: Weapon } = {};
 
   stats: WeaponStats[] = [];
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  async fetchWeaponsData() {
+    try {
+      const { data, status } = await axios.get<Weapon[]>(
+        "https://admin.fuse8csgo.ru/weapons"
+      );
+
+      if (status === 200) {
+        const weapons = {};
+
+        data.forEach((weapon) => {
+            weapons[weapon.WeaponId] = weapon;
+        });
+        this.weapons = weapons;
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async fetchWeaponsStatsData() {
@@ -31,18 +52,6 @@ class WeaponsStore {
 
       if (status === 200) {
         this.stats = data;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async fetchWeaponsData() {
-    try {
-      const { data, status } = await axios.get<Weapon[]>("https://admin.fuse8csgo.ru/weapons");
-
-      if (status === 200) {
-        this.weapons = data;
       }
     } catch (error) {
       console.log(error);

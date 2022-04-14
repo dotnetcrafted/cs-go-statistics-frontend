@@ -6,7 +6,7 @@ import steamPlayers from "../store/steamPlayers";
 import AppBar from "./AppBar/AppBar";
 import Home from "./pages/Home/Home";
 import Wiki from "./pages/Wiki/Wiki";
-import { Matches } from "./matches";
+import Matches from "./pages/Matches/Matches";
 import { Weapons } from "./weapons";
 
 const App = () => {

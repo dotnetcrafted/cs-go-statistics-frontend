@@ -12,6 +12,10 @@ export const MENU = [
     text: "MATCHES",
     path: "/matches",
   },
+  {
+    text: "WEAPONS",
+    path: "/weapons",
+  },
 ];
 
 const AppBar: FC = () => (
