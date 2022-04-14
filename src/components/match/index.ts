@@ -1,3 +1,3 @@
-import './scss/index.scss';
+import "./scss/index.scss";
 
-export { MatchController as Match } from './ts/match.controller';
+export { MatchController as Match } from "./ts/match.controller";

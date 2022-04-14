@@ -1,12 +1,7 @@
-/* @ts-ignore */
-//import app from "../../../general/ts/app";
-const app = {
-  state: {
-    icons: {},
-    players: {},
-    weapons: {},
-  },
-};
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+// import app from "../../../general/ts/app";
 import {
   CmsIconModel,
   CmsPlayerModel,
@@ -14,8 +9,16 @@ import {
   DurationModel,
 } from "../../../models";
 
+const app = {
+  state: {
+    icons: {},
+    players: {},
+    weapons: {},
+  },
+};
+
 export const getWeaponById = (id: number): CmsWeaponModel | null => {
-  const weapons = app.state.weapons;
+  const { weapons } = app.state;
 
   if (!Array.isArray(weapons)) return null;
 
@@ -23,7 +26,7 @@ export const getWeaponById = (id: number): CmsWeaponModel | null => {
 };
 
 export const getIconByName = (name: string): CmsIconModel | null => {
-  const icons = app.state.icons;
+  const { icons } = app.state;
 
   if (!Array.isArray(icons)) return null;
 
@@ -31,7 +34,7 @@ export const getIconByName = (name: string): CmsIconModel | null => {
 };
 
 export const getPlayerById = (id: string): CmsPlayerModel | null => {
-  const players = app.state.players;
+  const { players } = app.state;
 
   if (!Array.isArray(players)) return null;
 

@@ -61,7 +61,7 @@ const COLUMNS = [
   },
 ];
 
-const PlayersTable: FC = observer(() => {
+const PlayersTable: FC = () => {
   const onRowClick = useCallback((id: string) => {
     currentPlayer.setCurrentPlayer(id);
   }, []);
@@ -84,6 +84,6 @@ const PlayersTable: FC = observer(() => {
       />
     </div>
   );
-});
+};
 
-export default PlayersTable;
+export default observer(PlayersTable);

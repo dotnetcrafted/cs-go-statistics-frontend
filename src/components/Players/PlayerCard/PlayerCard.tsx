@@ -6,7 +6,7 @@ import { FC } from "react";
 import currentPlayer from "../../../store/currentPlayer";
 import PlayerStatistics from "./PlayerStatistics";
 
-const PlayersCard: FC = observer(() => {
+const PlayersCard: FC = () => {
   const renderAvatar = (image: string): JSX.Element => {
     if (image) {
       return <Avatar size={48} shape="square" src={image} />;
@@ -35,6 +35,6 @@ const PlayersCard: FC = observer(() => {
       <div>Victims</div>
     </Card>
   );
-});
+};
 
-export default PlayersCard;
+export default observer(PlayersCard);

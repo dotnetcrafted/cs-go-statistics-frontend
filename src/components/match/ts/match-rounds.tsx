@@ -32,7 +32,7 @@ export class MatchRounds extends React.Component<MatchDetailsRoundsProps, {}> {
   renderEmptyRound(roundIndex: number): ReactNode {
     return (
       <li className="match-rounds__li" key={roundIndex}>
-        <a className={"match-rounds__col"}>
+        <a className="match-rounds__col">
           <div className="match-rounds__cell match-rounds__cell--top no-value" />
           <div className="match-rounds__cell match-rounds__cell--mid">
             {roundIndex}

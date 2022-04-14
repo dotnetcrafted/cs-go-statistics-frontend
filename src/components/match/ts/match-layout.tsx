@@ -1,4 +1,4 @@
-/* @ts-nocheck */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
 import { parseISO, format } from "date-fns";
 import { MatchModel, MatchRoundModel } from "../../../models";

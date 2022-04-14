@@ -82,8 +82,8 @@ export class MatchKills extends React.Component<any, {}> {
       <img
         className="match-kills__penetrated"
         src={penetratedIcon.image}
-        alt={"penetrated"}
-        title={"Damage incomes through obstacles"}
+        alt="penetrated"
+        title="Damage incomes through obstacles"
       />
     );
   }
@@ -99,8 +99,8 @@ export class MatchKills extends React.Component<any, {}> {
       <img
         className="match-kills__headshot"
         src={headshotIcon.image}
-        alt={"headshot"}
-        title={"Damage incomes right in the head"}
+        alt="headshot"
+        title="Damage incomes right in the head"
       />
     );
   }
@@ -116,8 +116,8 @@ export class MatchKills extends React.Component<any, {}> {
       <img
         className="match-kills__suicide"
         src={suicideIcon.image}
-        alt={"suicide"}
-        title={"Emo"}
+        alt="suicide"
+        title="Emo"
       />
     );
   }

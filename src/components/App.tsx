@@ -1,7 +1,9 @@
+import { Content } from "antd/lib/layout/layout";
 import { useCallback, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import players from "../store/players";
 import steamPlayers from "../store/steamPlayers";
+import AppBar from "./AppBar/AppBar";
 import Home from "./pages/Home/Home";
 import Wiki from "./pages/Wiki/Wiki";
 import { Matches } from "./matches";
@@ -19,18 +21,18 @@ const App = () => {
   }, [fetchPlayers]);
 
   return (
-    <div>
-      {/* <AppBar /> */}
+    <>
+      <AppBar />
 
-      <main>
+      <Content style={{ padding: "50px" }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/wiki" element={<Wiki />} />
           <Route path="/matches" element={<Matches />} />
           <Route path="/weapons" element={<Weapons />} />
         </Routes>
-      </main>
-    </div>
+      </Content>
+    </>
   );
 };
 

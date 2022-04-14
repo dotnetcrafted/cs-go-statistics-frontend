@@ -5,7 +5,7 @@ import currentPlayer from "../../../store/currentPlayer";
 import PlayersCard from "../../Players/PlayerCard/PlayerCard";
 import PlayersTable from "../../Players/PlayersTable/PlayersTable";
 
-const Home: FC = observer(() => (
+const Home: FC = () => (
   <Row>
     <Col xs={24} lg={14}>
       <PlayersTable />
@@ -17,6 +17,6 @@ const Home: FC = observer(() => (
       </Col>
     )}
   </Row>
-));
+);
 
-export default Home;
+export default observer(Home);

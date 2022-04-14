@@ -19,6 +19,7 @@ class Players {
 
       if (status === 200) {
         console.log("steamDataPlayers", steamDataPlayers);
+        console.log("playersdata", data);
         const result = {
           ...data,
           players: data.players.map((i) => {

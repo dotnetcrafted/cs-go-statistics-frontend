@@ -1,4 +1,5 @@
-/* @ts-nocheck */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from "react";
 import { MatchesModel } from "../../../models";
 import { MatchesCard } from "./macthes-card";
