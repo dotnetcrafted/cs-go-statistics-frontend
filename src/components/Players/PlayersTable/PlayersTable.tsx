@@ -1,9 +1,10 @@
-import { Avatar, Table, Tag } from "antd";
+import { Avatar, Divider, Table, Tag } from "antd";
 import { observer } from "mobx-react-lite";
 import { FC, useCallback } from "react";
 import { Player } from "../../../interfaces/players";
 import currentPlayer from "../../../store/currentPlayer";
 import players from "../../../store/players";
+import PlayersTableFilterForm, { DateValues } from "./PlayersTableFilterForm";
 
 const COLUMNS = [
   {
@@ -66,8 +67,23 @@ const PlayersTable: FC = () => {
     currentPlayer.setCurrentPlayer(id);
   }, []);
 
+  const onFormSubmit = useCallback((params: DateValues): void => {
+    players.fetchPlayersData(params);
+    // this.fetchPlayers(this.props.playersDataUrl, params);
+    // const search = utils.getUrlSearch(params, this.props.router.location.search);
+    // history.push({
+    //     search
+    // });
+  }, []);
+
   return (
     <div>
+      <Divider orientation="left">Choose Dates to Filter Statistics</Divider>
+
+      <PlayersTableFilterForm onFormSubmit={onFormSubmit} />
+
+      <Divider />
+
       <Table
         rowKey={(record: Player) => record.id}
         bordered

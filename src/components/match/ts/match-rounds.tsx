@@ -1,4 +1,12 @@
-/* @ts-nocheck */
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable no-plusplus */
+/* eslint-disable class-methods-use-this */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/sort-comp */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import React, { ReactNode } from "react";
 import { MatchRoundModel } from "../../../models";
 import { getIconByName } from "../../../project/helpers";
@@ -70,9 +78,11 @@ export class MatchRounds extends React.Component<MatchDetailsRoundsProps, {}> {
           >
             {round.id <= 15 ? attackReasonIcon : defenceReasonIcon}
           </div>
+
           <div className="match-rounds__cell match-rounds__cell--mid">
             {round.id}
           </div>
+
           <div
             className={`match-rounds__cell match-rounds__cell--bottom ${
               round.id <= 15 ? bottomCss : topCss

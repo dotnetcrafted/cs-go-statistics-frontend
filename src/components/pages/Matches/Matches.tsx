@@ -1,9 +1,8 @@
-import { Card, Col, Row, Space } from "antd";
-import Meta from "antd/lib/card/Meta";
+import { Row } from "antd";
 import { observer } from "mobx-react-lite";
 import { FC, useCallback, useEffect } from "react";
-import { Link } from "react-router-dom";
 import matches from "../../../store/matches";
+import MatchesCard from "./MatchesCard/MatchesCard";
 
 const Matches: FC = () => {
   const fetchMatches = useCallback(() => {
@@ -20,22 +19,7 @@ const Matches: FC = () => {
     <div>
       <Row gutter={[16, 16]}>
         {matches?.data?.matches &&
-          matches.data.matches.map((match) => (
-            <Col span={6} key={match.id}>
-              <Link to={`/matches/${match.id}`}>
-                <Card
-                  cover={<img alt="example" src={match.mapImage} />}
-                  onClick={() => console.log(123)}
-                  hoverable
-                >
-                  <Meta
-                    title={match.map}
-                    description={`${match.aScore} : ${match.bScore}`}
-                  />
-                </Card>
-              </Link>
-            </Col>
-          ))}
+          matches.data.matches.map((match) => <MatchesCard match={match} />)}
       </Row>
     </div>
   );

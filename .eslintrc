@@ -10,7 +10,12 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": [
+      "./tsconfig.json",
+      "./tailwind.config.js",
+      "./craco.config.js",
+      "./postcss.config.js"
+    ]
   },
   "rules": {
     "react/react-in-jsx-scope": "off",

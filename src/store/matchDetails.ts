@@ -2,10 +2,12 @@
 import { AxiosResponse } from "axios";
 import { makeAutoObservable } from "mobx";
 import { Axios } from "../core/api/client";
-import { IMatchesDetails } from "../interfaces/matchDetails";
+import { CurrentRoundData, IMatchesDetails } from "../interfaces/matchDetails";
 
 class MatchDetails {
   data: IMatchesDetails = null;
+
+  currentRound: CurrentRoundData = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -18,12 +20,15 @@ class MatchDetails {
       );
 
       if (status === 200) {
-        console.log("MatchDetails", data);
         this.data = data;
       }
     } catch (error) {
       console.log(error);
     }
+  }
+
+  selectRound(round: CurrentRoundData) {
+    this.currentRound = round;
   }
 }
 

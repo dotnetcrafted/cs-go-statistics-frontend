@@ -1,4 +1,9 @@
-/* @ts-nocheck */
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable class-methods-use-this */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { ReactNode } from "react";
 import {
   MatchSquadModel,

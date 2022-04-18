@@ -2,7 +2,7 @@ import { Col, Row } from "antd";
 import Title from "antd/lib/typography/Title";
 import { observer } from "mobx-react-lite";
 import { FC } from "react";
-import matchDetails from "../../store/matchDetails";
+import matchDetails from "../../../../store/matchDetails";
 
 const MatchLayout: FC = ({ children }) => (
   <div>
@@ -22,4 +22,5 @@ const MatchLayout: FC = ({ children }) => (
     <div>{children}</div>
   </div>
 );
+
 export default observer(MatchLayout);

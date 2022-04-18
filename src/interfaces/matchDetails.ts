@@ -42,6 +42,10 @@ export type MatchesDetailsRounds = {
   tScore: number;
 };
 
+export type CurrentRoundData = Partial<MatchesDetailsRounds> & {
+  empty: boolean;
+};
+
 export interface IMatchesDetails {
   aScore: number;
   bScore: number;

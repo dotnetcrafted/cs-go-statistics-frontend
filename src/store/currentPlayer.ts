@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable class-methods-use-this */
 import { makeAutoObservable } from "mobx";
 import { Player } from "../interfaces/players";

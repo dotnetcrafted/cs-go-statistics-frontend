@@ -1,9 +1,13 @@
-/* @ts-nocheck */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React from "react";
 import { Table } from "antd";
+import { observable, toJS } from "mobx";
 import { MatchRoundModel } from "../../../models";
 import { getPlayerById, getTableValueByMask } from "../../../project/helpers";
 import { columns } from "./enums";
+import players from "../../../store/players";
 
 interface MatchStatsProps {
   round: MatchRoundModel | null;
@@ -66,9 +70,12 @@ export const MatchStats: React.FC<MatchStatsProps> = ({ round }) => {
           );
         });
 
-        const players = squad.players
+        const playersData = squad.players
           .map((player) => {
-            const cmsPlayer = getPlayerById(player.id);
+            // const cmsPlayer = getPlayerById(player.id);
+            const cmsPlayer = toJS(players.players).find(
+              (i) => i.steamId === player.id
+            );
 
             if (!cmsPlayer) return null;
 
@@ -90,8 +97,8 @@ export const MatchStats: React.FC<MatchStatsProps> = ({ round }) => {
 
             return {
               id: player.id,
-              rank: cmsPlayer.rang,
-              name: cmsPlayer.nickName,
+              rank: cmsPlayer.Rang,
+              name: cmsPlayer.NickName,
               kad: maskedKad,
               kd: `${maskedKd}.${splittedKd[1]}`,
               kdDiff: getTableValueByMask(
@@ -109,16 +116,13 @@ export const MatchStats: React.FC<MatchStatsProps> = ({ round }) => {
           <div className={`match-stats__team ${teamCss}`} key={squad.title}>
             <Table
               className="match-stats__table"
-              rowKey={(record) => record.id}
+              rowKey={(record: any) => record.id}
               // TODO: откуда он ожидает другую модель
-              // @ts-ignore
-              dataSource={players}
-              // @ts-ignore
+              dataSource={playersData}
               columns={columns}
               bordered={false}
               pagination={false}
               rowClassName={(record) => {
-                // @ts-ignore
                 if (record.isDied) return "died";
 
                 return "";

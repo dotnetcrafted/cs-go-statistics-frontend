@@ -6,9 +6,10 @@ import steamPlayers from "../store/steamPlayers";
 import { weaponsStore } from "../store";
 import AppBar from "./AppBar/AppBar";
 import Home from "./pages/Home/Home";
-import Wiki from "./pages/Wiki/Wiki";
+import Match from "./pages/Match/Match";
 import Matches from "./pages/Matches/Matches";
-import { Weapons } from "./weapons";
+import Weapons from "./pages/Weapons/Weapons";
+import Wiki from "./pages/Wiki/Wiki";
 
 const App = () => {
   const fetchPlayers = useCallback(() => {
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/wiki" element={<Wiki />} />
           <Route path="/matches" element={<Matches />} />
+          <Route path="/matches/:id" element={<Match />} />
           <Route path="/weapons" element={<Weapons />} />
         </Routes>
       </Content>

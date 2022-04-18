@@ -1,5 +1,8 @@
+/* eslint-disable class-methods-use-this */
+/* eslint-disable @typescript-eslint/require-await */
 import { AxiosResponse } from "axios";
 import { makeAutoObservable } from "mobx";
+import { DateValues } from "../components/Players/PlayersTable/PlayersTableFilterForm";
 import { Axios } from "../core/api/client";
 import { IPlayers, Player } from "../interfaces/players";
 import { ISteamPlayers } from "../interfaces/steamPlayers";
@@ -35,6 +38,23 @@ class Players {
 
         console.log("result", result.players);
         this.players = result.players;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async fetchPlayersData(params?: DateValues) {
+    try {
+      const { data, status }: AxiosResponse<IPlayers> = await Axios.get(
+        "playersdata",
+        {
+          params,
+        }
+      );
+
+      if (status === 200) {
+        this.players = data.players;
       }
     } catch (error) {
       console.log(error);

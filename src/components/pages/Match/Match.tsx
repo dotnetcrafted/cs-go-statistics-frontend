@@ -2,10 +2,10 @@ import { observer } from "mobx-react-lite";
 import { FC, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import matchDetails from "../../../store/matchDetails";
-import MatchKills from "../../MatchDetails/MatchKills";
-import MatchLayout from "../../MatchDetails/MatchLayout";
-import MatchRounds from "../../MatchDetails/MatchRounds";
-import MatchStats from "../../MatchDetails/MatchStats";
+import MatchKills from "./MatchKills/MatchKills";
+import MatchLayout from "./MatchLayout/MatchLayout";
+import MatchRounds from "./MatchRounds/MatchRounds";
+import MatchStats from "./MatchStats/MatchStats";
 
 const Match: FC = () => {
   const { id } = useParams();
