@@ -3,6 +3,7 @@ import { useCallback, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import players from "../store/players";
 import steamPlayers from "../store/steamPlayers";
+import { weaponsStore } from "../store";
 import AppBar from "./AppBar/AppBar";
 import Home from "./pages/Home/Home";
 import Wiki from "./pages/Wiki/Wiki";
@@ -19,6 +20,10 @@ const App = () => {
       fetchPlayers();
     }
   }, [fetchPlayers]);
+
+  useEffect(() => {
+    weaponsStore.fetchWeaponsData();
+  }, []);
 
   return (
     <>

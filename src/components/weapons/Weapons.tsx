@@ -1,10 +1,19 @@
-import React, { useEffect } from "react";
-import { toJS, values } from "mobx";
+import React, { useState, useEffect, useCallback } from "react";
 import { observer } from "mobx-react-lite";
+import {
+  startOfWeek,
+  endOfWeek,
+  startOfMonth,
+  endOfMonth,
+  startOfYear,
+  endOfYear,
+} from "date-fns";
 import { Tabs } from "antd";
 
-import { weaponsStore } from "../../store";
+import { weaponsStore, WeaponStats } from "../../store";
 import { TopWeapons } from "./TopWeapons";
+import { WeaponFilter } from "./WeaponFilter";
+import { PeriodType } from "./types";
 
 const { TabPane } = Tabs;
 
@@ -20,74 +29,78 @@ const groups = [
 ];
 
 export const Weapons = observer(() => {
-  const { weapons, stats } = weaponsStore;
+  const [period, setPeriod] = useState<PeriodType>("week");
+  const { weapons, stats: weaponStats } = weaponsStore;
+
 
   useEffect(() => {
-    weaponsStore.fetchWeaponsData();
-    weaponsStore.fetchWeaponsStatsData();
+    const today = new Date();
+
+    let from: Date;
+    let to: Date;
+
+    switch (period) {
+      case "week": {
+        from = startOfWeek(today, { weekStartsOn: 1 });
+        to = endOfWeek(today, { weekStartsOn: 1 });
+        break;
+      }
+      case "month": {
+        from = startOfMonth(today);
+        to = endOfMonth(today);
+        break;
+      }
+      case "year": {
+        from = startOfYear(today);
+        to = endOfYear(today);
+        break;
+      }
+      default: {
+        from = today;
+        to = today;
+      }
+    }
+    weaponsStore.fetchWeaponsStatsData(from, to);
+  }, [period]);
+
+  const normalisedStats: Record<string, WeaponStats> = {};
+
+  const handleOnFilterChange = useCallback((newPeriod: PeriodType) => {
+    setPeriod(newPeriod);
   }, []);
 
-  // https://admin.fuse8csgo.ru/uploads/99_icon_m4a1_silencer_grey_png_307dc15bcd.png
-  console.log(weapons);
-  const statsByIds: Record<string, any> = {};
-
-  stats.forEach((weapon) => {
-    statsByIds[weapon.id] = toJS(weapon);
+  weaponStats.forEach((weapon) => {
+    normalisedStats[weapon.id] = weapon;
   });
 
-  // console.log("statsByIds", toJS(statsByIds));
-
-  if (!Object.keys(statsByIds).length) return null;
+  if (!Object.keys(normalisedStats).length) return null;
 
   return (
     <div style={{ background: "lightgrey" }}>
-      <div style={{ display: "flex", gap: "16px" }}>
-        <button type="button">Week</button>
-        <button type="button">Month</button>
-        <button type="button">Year</button>
-      </div>
+      <WeaponFilter period={period} onChange={handleOnFilterChange} />
       <TopWeapons />
-      <br />
-      <br />
-
       <Tabs defaultActiveKey={groups[0].name}>
         {groups.map((group) => {
-          let ids = group.types.flatMap((type) => {
-            const res = Object.values(toJS(weapons)).filter((value) => {
-              return value.Type.Name === type;
+          const weaponsIds = group.types.flatMap((type) => {
+            const res = Object.values(weapons).filter((value) => {
+              return value.type === type;
             });
 
-            return res.map((x) => x.WeaponId);
+            return res.map((x) => x.id);
           });
 
-          ids = ids.map((id) => {
-            const weapon = toJS(weapons[id]);
-            const stats = statsByIds[id] ?? null;
+          const mappedWeapons = weaponsIds
+            .map((id) => {
+              const weapon = weapons[id];
+              const itemStats = normalisedStats[id] ?? null;
 
-            return { id, ...weapon, stats: stats };
-          }).sort((a, b) => {
-            if (b.stats === null) return -1;
+              return { id, ...weapon, stats: itemStats };
+            })
+            .sort((a, b) => {
+              if (b.stats === null) return -1;
 
-            return Math.sign(b.stats?.kills - a.stats?.kills);
-          })
-
-          console.log("ids", ids);
-
-          // const withoutStats = [];
-          // const groupStats = stats.filter((statsItem) => {
-          //   if (ids.includes(statsItem.id)) {
-          //     return true;
-          //   }
-
-          //   withoutStats.push({ weaponId: statsItem.id });
-          //   return false;
-          // });
-
-          // console.log(groupStats, withoutStats)
-
-          // const final = [...groupStats, ...withoutStats];
-
-          // console.log('final');
+              return Math.sign(Number(b.stats?.kills) - Number(a.stats?.kills));
+            });
 
           return (
             <TabPane key={group.name} tab={group.name}>
@@ -98,8 +111,7 @@ export const Weapons = observer(() => {
                 <div style={{ width: 50 }}>Kills</div>
                 <div style={{ width: 50 }}>Headshots</div>
               </div>
-              {ids.map(({ id, Name, stats }) => {
-
+              {mappedWeapons.map(({ id, name, stats }) => {
                 return (
                   <div
                     key={id}
@@ -109,10 +121,7 @@ export const Weapons = observer(() => {
                       textAlign: "center",
                     }}
                   >
-                    {/* <img src={weapons[weapon.id].Name} /> */}
-                    <div style={{ width: 200, textAlign: "left" }}>
-                      {Name}
-                    </div>
+                    <div style={{ width: 200, textAlign: "left" }}>{name}</div>
                     <div style={{ width: 50 }}>{stats?.kills ?? 0}</div>
                     <div style={{ width: 50 }}>
                       {stats?.headShotsRatio ?? 0} %
@@ -124,10 +133,6 @@ export const Weapons = observer(() => {
           );
         })}
       </Tabs>
-      <br />
-      <br />
-      <br />
-      <br />
     </div>
   );
 });

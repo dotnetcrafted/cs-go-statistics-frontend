@@ -1,14 +1,24 @@
 import axios, { AxiosResponse } from "axios";
-import { makeAutoObservable, toJS } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { Axios } from "../core/api/client";
 
-interface Weapon {
-  id: string;
+import { CmsWeaponModel } from "../models";
+
+export interface Weapon {
   WeaponId: number;
-  Name: any;
+  Name: string;
+  Type: {
+    Name: string;
+  }
+  Image: {
+    url: string;
+  }
+  Icon: {
+    url: string
+  }
 }
 
-interface WeaponStats {
+export interface WeaponStats {
   id: number;
   headShots: number;
   headShotsRatio: number;
@@ -17,7 +27,7 @@ interface WeaponStats {
 }
 
 class WeaponsStore {
-  weapons: { [key: string]: Weapon } = {};
+  weapons: { [key: string]: CmsWeaponModel } = {};
 
   stats: WeaponStats[] = [];
 
@@ -35,23 +45,34 @@ class WeaponsStore {
         const weapons = {};
 
         data.forEach((weapon) => {
-            weapons[weapon.WeaponId] = weapon;
+          weapons[weapon.WeaponId] = {
+            id: weapon.WeaponId,
+            name: weapon.Name,
+            type: weapon.Type.Name,
+            photoImage: weapon.Image.url,
+            iconImage: weapon.Icon.url,
+          };
         });
-        this.weapons = weapons;
+
+        runInAction(() => {
+          this.weapons = weapons;
+        });
       }
     } catch (error) {
       console.log(error);
     }
   }
 
-  async fetchWeaponsStatsData() {
+  async fetchWeaponsStatsData(from: Date, to: Date) {
     try {
       const { data, status }: AxiosResponse<WeaponStats[]> = await Axios.get(
-        "/weaponsdata"
+        `/weaponsdata?dateFrom=${from.toISOString()}&dateTo=${to.toISOString()}`
       );
 
       if (status === 200) {
-        this.stats = data;
+        runInAction(() => {
+          this.stats = data;
+        });
       }
     } catch (error) {
       console.log(error);

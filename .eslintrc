@@ -17,6 +17,7 @@
     "react/jsx-props-no-spreading": "off",
     "linebreak-style": ["error", "windows"],
     "react/function-component-definition": "off",
+    "react/require-default-props": "off",
     "quotes": ["error", "double"],
     "import/prefer-default-export": "off",
     "no-console": "off",
